@@ -1,4 +1,4 @@
-# Brands Gutenberg Blocks
+# Calendar Gutenberg Blocks
 
 Create beautiful calendar section on your website for managing bookings and appointments. 
 To be used with WordPress Gutenberg.
