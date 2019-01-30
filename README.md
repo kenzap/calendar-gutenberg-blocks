@@ -4,7 +4,7 @@ Create beautiful brands section on your website.
 To be used with WordPress Gutenberg.
 
 
-![Create calendar section with Gutenberg](https://kenzap.com/website/img/calendar-2.png)
+![Create calendar section with Gutenberg](https://kenzap.com/website/img/calendar-3.png)
 
 <b>Block is easy customizable:</b>
 
