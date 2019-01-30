@@ -1,6 +1,6 @@
 # Brands Gutenberg Blocks
 
-Create beautiful brands section on your website. 
+Create beautiful calendar section on your website for managing bookings and appointments. 
 To be used with WordPress Gutenberg.
 
 
