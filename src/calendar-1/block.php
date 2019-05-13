@@ -18,7 +18,7 @@ if ( $attributes['serverSide'] ){
 
 	<?php if( !class_exists( 'WooCommerce' ) ) { echo esc_html__('Please activate WooCommerce plugin','kenzap-calendar');}else{ ?>
 
-	<div class="kenzap-booking-form-1 <?php echo esc_attr($kenzapSize); ?> <?php if (isset($attributes['className'])) echo esc_attr($attributes['className']); ?>" data-product="<?php echo esc_attr($attributes['product_id']); ?>" data-cid="<?php echo esc_attr($attributes['cid']); ?>" style="--cbr:<?php echo esc_attr($attributes['cbr']); ?>px;--ebr:<?php echo esc_attr($attributes['ebr']); ?>px;--mc:<?php echo esc_attr($attributes['mainColor']); ?>;--tc:<?php echo esc_attr($attributes['textColor']); ?>;--ctc:<?php echo esc_attr($attributes['textColor2']); ?>;<?php echo ($kenzapStyles);//escaped in src/commonComponents/container/container-cont.php ?>">
+	<div class="kenzap-booking-form-1 <?php if($attributes['align']) echo "align".$attributes['align']." "; echo esc_attr($kenzapSize); ?> <?php if (isset($attributes['className'])) echo esc_attr($attributes['className']); ?>" data-product="<?php echo esc_attr($attributes['product_id']); ?>" data-cid="<?php echo esc_attr($attributes['cid']); ?>" style="--cbr:<?php echo esc_attr($attributes['cbr']); ?>px;--ebr:<?php echo esc_attr($attributes['ebr']); ?>px;--mc:<?php echo esc_attr($attributes['mainColor']); ?>;--tc:<?php echo esc_attr($attributes['textColor']); ?>;--ctc:<?php echo esc_attr($attributes['textColor2']); ?>;<?php echo ($kenzapStyles);//escaped in src/commonComponents/container/container-cont.php ?>">
 
 		<div class="kenzap-container" style="max-width:<?php echo esc_attr($attributes['containerMaxWidth']);?>px">
 

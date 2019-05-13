@@ -5,6 +5,10 @@ function kenzap_calendar_1() {
 	require KENZAP_CALENDAR.'/src/commonComponents/container/container-var.php';
 
 	$attributes = array(
+		'align' => array(
+			'type'    => 'string',
+			'default' => '',
+		),
 		'serverSide'  => array(
 			'type'    => 'boolean',
 			'default' => false,

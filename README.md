@@ -1,27 +1,3 @@
-# Calendar Gutenberg Blocks
-
-Create beautiful calendar section on your website for managing bookings and appointments. 
-To be used with WordPress Gutenberg.
-
-
-![Create calendar section with Gutenberg](https://kenzap.com/website/img/calendar-3.png)
-
-<b>Block is easy customizable:</b>
-
-<ul>
-<li>Set up calendar date range</li>
-<li>Define custom time slots for date ranges or individual date</li>
-<li>Adjust day availability for each day of the week individually</li>
-<li>Define first day of the week</li>
-<li>Variate checkout preview upon date/time selection</li>
-<li>Wide and narrow layout support</li>
-<li>Adjust texts and text container design</li>
-<li>Customize colors, borders, background with no coding skills</li>
-<li>Seamless WooCommerce support</li>
-</ul>
-
-# How to build the block
-
 This project was bootstrapped with [Create Guten Block](https://github.com/ahmadawais/create-guten-block).
 
 Below you will find some information on how to run scripts.

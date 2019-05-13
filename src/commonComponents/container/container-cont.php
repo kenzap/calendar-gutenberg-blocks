@@ -9,7 +9,7 @@ if ( $attributes['containerMaxWidth'] < 480 ) { $kenzapSize = 'kenzap-xs'; }
 $backgroundRepeat = 'no-repeat';
 $backgroundSize = 'auto';
 $backgroundImage = $attributes['backgroundImage']; 
-$backgroundColor = $attributes['backgroundColor']; 
+$backgroundPosition = $attributes['backgroundPosition']; 
 
 switch ( $attributes['backgroundStyle'] ) {
 	case 'default':
@@ -33,5 +33,5 @@ switch ( $attributes['backgroundStyle'] ) {
 }
 
 //generate styles
-$kenzapStyles = "padding-top:".esc_attr($attributes['containerPadding'])."px;padding-bottom:".esc_attr($attributes['containerPadding'])."px;background-color:".esc_attr($backgroundColor).";".(( strlen($attributes['backgroundImage']) > 5 ) ? 'background-image:url('.esc_url($attributes['backgroundImage']).');background-size:'.esc_attr($backgroundSize).';background-repeat:'.esc_attr($backgroundRepeat).';':'');
+$kenzapStyles = "padding-top:".esc_attr($attributes['containerPadding'])."px;padding-bottom:".esc_attr($attributes['containerPadding'])."px;".(isset($attributes['backgroundColor'])?"background-color:".esc_attr($attributes['backgroundColor']).";--bc:".esc_attr($attributes['backgroundColor']).";":"").(( strlen($attributes['backgroundImage']) > 5 ) ? 'background-image:url('.esc_url($attributes['backgroundImage']).');background-size:'.esc_attr($backgroundSize).';background-position:'.esc_attr($backgroundPosition).';background-repeat:'.esc_attr($backgroundRepeat).';':'');
 ?>

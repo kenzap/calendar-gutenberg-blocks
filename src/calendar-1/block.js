@@ -1,10 +1,3 @@
-/**
- * BLOCK: kenzap-calendar
- *
- * Registering a basic block with Gutenberg.
- * Simple block, renders and saves the same content without any interactivity.
- */
-
 //  Import CSS.
 import './style.scss';
 import './editor.scss';
@@ -37,6 +30,9 @@ registerBlockType( 'kenzap/calendar-1', {
 		__( 'booking', 'kenzap-calendar' ),
 		__( 'reservation', 'kenzap-calendar' ),
 	],
+	supports: {
+        align: [ 'full', 'wide' ],
+    },
 	attributes: {
 		...blockProps,
 		cid: {

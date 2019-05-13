@@ -5,7 +5,7 @@
  * Description: Display calendar section for appointments, reservations or bookings. Specify custom time slots. Link checkout process with WooCommerce.
  * Author: Kenzap
  * Author URI: https://kenzap.com/
- * Version: 1.0.0
+ * Version: 1.0.1
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: kenzap-calendar

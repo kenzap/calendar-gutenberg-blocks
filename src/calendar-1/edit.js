@@ -5,11 +5,6 @@ const { InspectorControls, PanelColorSettings } = wp.editor;
 const { RangeControl, CheckboxControl, PanelBody, ServerSideRender, SelectControl, TextControl, TextareaControl, DateTimePicker } = wp.components;
 import { InspectorContainer } from '../commonComponents/container/container';
 const { __experimentalGetSettings } = wp.date;
-/**
- * Keys for new blocks
- * @type {number}
- */
-let key = 0;
 
 /**
  * The edit function describes the structure of your block in the context of the editor.
@@ -20,9 +15,6 @@ let key = 0;
  * @returns {Node} rendered component
  */
 export default class Edit extends Component {
-    state = {
-        activeSubBlock: -1,
-    };
 
     render() {
         const {
@@ -508,6 +500,7 @@ export default class Edit extends Component {
                 <ServerSideRender
                     block="kenzap/calendar-1"
                     attributes={ {
+                        align: attributes.align,
                         serverSide: true,
                     } }
                 />
