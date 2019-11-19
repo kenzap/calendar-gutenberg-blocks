@@ -44,11 +44,21 @@ export const blockProps = {
         default: false,
     },
 
+    optimize: {
+        type: 'boolean',
+        default: true,
+    },
+
     backgroundColor: {
         type: 'string',
     },
 
     backgroundImage: {
+        type: 'string',
+        default: 'none',
+    },
+
+    backgroundImageF: {
         type: 'string',
         default: 'none',
     },
@@ -101,6 +111,7 @@ export class InspectorContainer extends Component {
             withBackground = true,
             backgroundImageId,
             backgroundImage,
+            backgroundImageF,
             containerMaxWidth,
             backgroundColor,
             backgroundRepeat,
@@ -109,8 +120,10 @@ export class InspectorContainer extends Component {
             setAttributes,
             width100,
             parallax,
+            optimize,
             withWidth100 = false,
             withPadding = false,
+            withNested = false,
             containerPadding,
             containerSidePadding,
             autoPadding = '',
@@ -141,13 +154,15 @@ export class InspectorContainer extends Component {
                     <p style={ { marginBottom: '5px' } }>{ __( 'Image' ) }</p>
                     <MediaUpload
                         onSelect={ ( media ) => {
+                                let url = media.sizes['kp_banner']?media.sizes['kp_banner']['url']:media.url;
                                 this.props.setAttributes( {
-                                    backgroundImage: media.url,
+                                    backgroundImage: url,
+                                    backgroundImageF: media.url,
                                     backgroundImageId: media.id,
                                 } );
                             } }
                         value={ backgroundImageId }
-                        allowedTypes={ [ 'image' ] }
+                        //allowedTypes={ [ 'image' ] }
                         render={ ( mediaUploadProps ) => (
                             <Fragment>
                                 { ( backgroundImageId || backgroundImage !== 'none' ) ? (
@@ -169,7 +184,7 @@ export class InspectorContainer extends Component {
                                                 height: '27px',
                                                 display: 'inline-block',
                                                 margin: '0 0 0 5px',
-                                                backgroundImage: `url(${ [ this.props.backgroundImage ? uo(this.props.backgroundImage) : '' ] })`,
+                                                backgroundImage: `url(${ [ this.props.backgroundImage ? (this.props.backgroundImage) : '' ] })`,
                                                 backgroundRepeat: 'no-repeat',
                                                 backgroundSize: 'cover',
                                             } }
@@ -235,6 +250,17 @@ export class InspectorContainer extends Component {
                         } }
                         help={ __( 'Background image behaviour during scroll.' ) }
                     />
+                    
+                    <CheckboxControl
+                        label={ __( 'Optimize' ) }
+                        checked={ optimize }
+                        onChange={ ( optimize ) => {
+                            setAttributes( {
+                                optimize: optimize,
+                            } );
+                        } }
+                        help={ __( 'Optimize background image size for faster page loading.' ) }
+                    />
                     </Fragment>}
                 </PanelBody>
                 }
@@ -295,11 +321,12 @@ export class InspectorContainer extends Component {
                                         autoPadding: isChecked ? 'autoPadding' : '',
                                     } );
                                 } }
-                                help={ __( 'Auto calculate top and bottom paddings' ) }
+                                help={ __( 'Auto calculate top and bottom paddings.' ) }
                             />
                         </Fragment>
                     }
 
+                    { withNested &&
                     <SelectControl
                         label={ __( 'Nested block' ) }
                         value={ nestedBlocks }
@@ -313,6 +340,7 @@ export class InspectorContainer extends Component {
                             } }
                             help={ __( 'Embed other blocks inside this container. Nested blocks inherit parent block styling settings. Add custom headings, spacings or paragraphs.' ) }
                         />
+                    }
                 </PanelBody>
             </Fragment>
         );
@@ -329,8 +357,8 @@ export const ContainerEdit = ( props ) => {
     const styles = {};
 
     if ( props.withBackground ) {
-        if ( props.attributes.backgroundImage ) {
-            styles.backgroundImage = props.attributes.backgroundImage !== 'none' ? `url(${ uo(props.attributes.backgroundImage) })` : 'none';
+        if ( props.attributes.backgroundImage ) { 
+            if(props.attributes.optimize){ styles.backgroundImage = props.attributes.backgroundImage !== 'none' ? `url(${ (props.attributes.backgroundImage) })` : 'none';}else{styles.backgroundImage = props.attributes.backgroundImageF !== 'none' ? `url(${ (props.attributes.backgroundImageF) })` : 'none'; }
             styles.backgroundRepeat = props.attributes.backgroundRepeat;
             styles.backgroundSize = props.attributes.backgroundSize;
             styles.backgroundPosition = props.attributes.backgroundPosition;
@@ -342,7 +370,7 @@ export const ContainerEdit = ( props ) => {
     }
 
     if ( props.withPadding && ! props.attributes.autoPadding ) {
-        styles.padding = `${ props.attributes.containerPadding }px ${ props.attributes.containerSidePadding }px`;
+        styles.padding = `${ props.attributes.containerPadding }px 0px`;
     }
 
     if ( props.attributes.parallax ) {
@@ -374,9 +402,23 @@ export const ContainerEdit = ( props ) => {
         }
     }
 
+    let additionalClassForKenzapContainer = 'kenzap-lg';
+    if (props.attributes.containerMaxWidth < 992 ) {
+        additionalClassForKenzapContainer = 'kenzap-md';
+    }
+    if ( props.attributes.containerMaxWidth < 768 ) {
+        additionalClassForKenzapContainer = 'kenzap-sm';
+    }
+    if ( props.attributes.containerMaxWidth < 480 ) {
+        additionalClassForKenzapContainer = 'kenzap-xs';
+    }
+    if ( props.attributes.width100 ) {
+        additionalClassForKenzapContainer = 'kenzap-lg';
+    }
+
     return (
         <div
-            className={ `${ props.className } ${ props.attributes.alignment } ${ props.attributes.autoPadding }` }
+            className={ `${ props.className } ${additionalClassForKenzapContainer} ${ props.attributes.alignment } ${ props.attributes.autoPadding }` }
             style={ { ...styles, ...props.style } }
         >
             { props.children }
@@ -395,7 +437,7 @@ export const ContainerSave = ( props ) => {
 
     if ( props.withBackground ) {
         if ( props.attributes.backgroundImage ) {
-            styles.backgroundImage = props.attributes.backgroundImage !== 'none' ? `url(${ uo(props.attributes.backgroundImage) })` : 'none';
+            if(props.attributes.optimize){ styles.backgroundImage = props.attributes.backgroundImage !== 'none' ? `url(${ (props.attributes.backgroundImage) })` : 'none'; }else{ styles.backgroundImage = props.attributes.backgroundImageF !== 'none' ? `url(${ (props.attributes.backgroundImageF) })` : 'none'; }
             styles.backgroundRepeat = props.attributes.backgroundRepeat;
             styles.backgroundSize = props.attributes.backgroundSize;
             styles.backgroundPosition = props.attributes.backgroundPosition;
@@ -407,7 +449,7 @@ export const ContainerSave = ( props ) => {
     }
 
     if ( props.withPadding && ! props.attributes.autoPadding ) {
-        styles.padding = `${ props.attributes.containerPadding }px ${ props.attributes.containerSidePadding }px`;
+        styles.padding = `${ props.attributes.containerPadding }px 0px`;
     }
 
     if ( props.attributes.parallax ) {

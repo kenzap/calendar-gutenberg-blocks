@@ -3,7 +3,7 @@ Contributors: kenzap
 Tags: appointment, booking, reservation
 Requires at least: 5.0
 Tested up to: 5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Donate link: https://kenzap.com/wordpress-plugin-donation-page/
 Requires PHP: 5.6
 License: GPL2+
@@ -82,3 +82,6 @@ New: Initial release
 = v1.0.1 =
 New: Improved stability
 Update: bug fix upon checkout
+
+= v1.0.2 =
+Update: undefined index warning in cart fix

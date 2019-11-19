@@ -7,8 +7,9 @@ add_theme_support('woocommerce');
 function kenzap_calendar_add_cart_item_custom_data( $cart_item_meta, $product_id ) {
 
     //save date and time for visual representation
-    $time = $_COOKIE['kenzap_booking_time'];
-    $date = $_COOKIE['kenzap_booking_date'];
+    $time = isset($_COOKIE['kenzap_booking_time_'.$product_id])?$_COOKIE['kenzap_booking_time_'.$product_id]:"";
+    $date = isset($_COOKIE['kenzap_booking_date_'.$product_id])?$_COOKIE['kenzap_booking_date_'.$product_id]:"";
+    if(isset($_COOKIE['kenzap_booking_time_'.$product_id]) && isset($_COOKIE['kenzap_booking_date_'.$product_id]))
     $cart_item_meta['kenzap_cal_date_time'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option('time_format'), strtotime( ($date." ".$time ) ) );
 
     return $cart_item_meta; 
@@ -18,14 +19,18 @@ add_filter( 'woocommerce_add_cart_item_data', 'kenzap_calendar_add_cart_item_cus
 // Display custom data on cart and checkout page.
 function kenzap_calendar_get_item_data ( $cart_data, $cart_item ) {
 
-    $time = $_COOKIE['kenzap_booking_time'];
-    $date = $_COOKIE['kenzap_booking_date'];
-    $cart_item['kenzap_cal_date_time'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option('time_format'), strtotime( ($date." ".$time ) ) );
+    //print_r($cart_item);
+    $product_id = $cart_item['product_id'];
+    $time = isset($_COOKIE['kenzap_booking_time_'.$product_id])?$_COOKIE['kenzap_booking_time_'.$product_id]:"";
+    $date = isset($_COOKIE['kenzap_booking_date_'.$product_id])?$_COOKIE['kenzap_booking_date_'.$product_id]:"";
 
-    $cart_data[] = array(
-        'name'    => esc_html__( "Date", "kenzap-calendar"),
-        'display' => esc_html($cart_item['kenzap_cal_date_time'])
-    );
+    if(isset($_COOKIE['kenzap_booking_time_'.$product_id]) && isset($_COOKIE['kenzap_booking_date_'.$product_id])){
+        $cart_item['kenzap_cal_date_time'] = date_i18n( get_option( 'date_format' ) . ' ' . get_option('time_format'), strtotime( ($date." ".$time ) ) );
+        $cart_data[] = array(
+            'name'    => esc_html__( "Date", "kenzap-calendar"),
+            'display' => esc_html($cart_item['kenzap_cal_date_time'])
+        );
+    }
     return $cart_data;
 }
 add_filter( 'woocommerce_get_item_data', 'kenzap_calendar_get_item_data' , 25, 2 );
@@ -57,7 +62,7 @@ add_action('woocommerce_new_order_item','kenzap_booking_add_order_item_meta', 10
 // override order confirmation title
 function kenzap_booking_order_title( $old_title ){
  
-    $time = $_COOKIE['kenzap_booking_time'];
+    $time = $_COOKIE['kenzap_booking_time_'.$product_id];
 
     //overrride only if order linked to calendar
     if(strlen($time)>0)
@@ -68,8 +73,8 @@ add_filter( 'woocommerce_endpoint_order-received_title', 'kenzap_booking_order_t
 // override order confirmation text
 function kenzap_booking_order_text( $old_title ){
  
-    $time = $_COOKIE['kenzap_booking_time'];
-    $date = $_COOKIE['kenzap_booking_date'];
+    $time = $_COOKIE['kenzap_booking_time_'.$product_id];
+    $date = $_COOKIE['kenzap_booking_date_'.$product_id];
     $df = date_i18n( get_option( 'date_format' ) . ' ' . get_option('time_format'), strtotime( ($date." ".$time ) ) );
 
     //override only if order linked to calendar
@@ -81,11 +86,23 @@ add_filter( 'woocommerce_thankyou_order_received_text', 'kenzap_booking_order_te
 // thank you page hook
 function kenzap_booking_thankyou( $order_id ) {
 
+    $product_id = "";
     $blockBooking = false; 
-    $month_id = $_COOKIE['kenzap_booking_month_id'];
-    $day = $_COOKIE['kenzap_booking_day'];
-    $time_id = $_COOKIE['kenzap_booking_time_id'];
-    $time_max = $_COOKIE['kenzap_booking_time_max'];
+
+    $order = new WC_Order( $order_id );
+    $items = $order->get_items(); 
+    foreach ( $items as $item ) {
+        $product_id = $item['product_id'];
+        // if ( $product_id == XYZ ) {
+         
+
+        // }
+    }
+
+    $month_id = $_COOKIE['kenzap_booking_month_id_'.$product_id];
+    $day = $_COOKIE['kenzap_booking_day_'.$product_id];
+    $time_id = $_COOKIE['kenzap_booking_time_id_'.$product_id];
+    $time_max = $_COOKIE['kenzap_booking_time_max_'.$product_id];
 
     // for specific dates testing
     // $day = 29;

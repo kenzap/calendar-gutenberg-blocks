@@ -28,11 +28,13 @@ jQuery(function ($) {
 		
 		if(event.type=='changed')
 			setCalDefaults();
-		console.log(event);
+		//console.log(event);
 	})
 
 	var dt = "", date = "", dow = "", date_full = "";
 	$(".kenzap .kenzap-booking-form-1 a,.kenzap .kenzap-booking-form-1 button").on("click", function(){
+		
+		var product_id = $(".kenzap .kenzap-booking-form-1").data('product');
 		
 		// calendar right click/swipe
 		if ($(this).hasClass("month-next")) { 
@@ -73,9 +75,9 @@ jQuery(function ($) {
 			getBookings(cid+"_"+ym);
 
 			// cache in cookies for checkout
-			createCookie("kenzap_booking_month_id",cid+"_"+ym,1);
-			createCookie("kenzap_booking_day",$(this).html(),1);
-			createCookie("kenzap_booking_date",date,1);
+			createCookie("kenzap_booking_month_id_"+product_id,cid+"_"+ym,1);
+			createCookie("kenzap_booking_day_"+product_id,$(this).html(),1);
+			createCookie("kenzap_booking_date_"+product_id,date,1);
 
 			// remove CTA
 			$(".booking-btn").remove();	
@@ -85,7 +87,6 @@ jQuery(function ($) {
 
 			// get woo product details 
 			var cid = $(".kenzap .kenzap-booking-form-1").data('cid');
-			var product_id = $(".kenzap .kenzap-booking-form-1").data('product');
 			var product_id_time = $(this).parent().attr('data-product');
 			var $btn_cont = $(".btn-cont");
 
@@ -107,10 +108,10 @@ jQuery(function ($) {
 			var max = $(this).parent().attr('data-max');
 			var desc = $(this).parent().attr('data-desc');
 			var feat = $(this).parent().attr('data-feat').split("\n");
-			createCookie("kenzap_calendar_id",cid,1);
-			createCookie("kenzap_booking_time_id",id,1);
-			createCookie("kenzap_booking_time_max",max,1);
-			createCookie("kenzap_booking_time",$(this).html(),1);
+			createCookie("kenzap_calendar_id_"+product_id,cid,1);
+			createCookie("kenzap_booking_time_id_"+product_id,id,1);
+			createCookie("kenzap_booking_time_max_"+product_id,max,1);
+			createCookie("kenzap_booking_time_"+product_id,$(this).html(),1);
 
 			// structure feature list into html
 			var featF = '';

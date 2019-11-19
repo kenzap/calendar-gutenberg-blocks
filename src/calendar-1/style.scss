@@ -19,8 +19,13 @@
 
 .kenzap .kenzap-booking-form-1 .kenzap-container{
 	max-width:1170px;
-	padding:0 15px;
+	padding:0 var(--paddings2,0);
 	margin:0 auto;
+	overflow-x: hidden;
+}
+
+.kenzap .kenzap-booking-form-1.autoPadding {
+	padding: calc(30px + (var(--paddings) - 30) * ((100vw - 300px) / (1600 - 300))) 0!important;
 }
 
 .kenzap .kenzap-booking-form-1 .kenzap-row{
