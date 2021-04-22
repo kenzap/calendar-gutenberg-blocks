@@ -4,7 +4,7 @@ Create beautiful calendar section on your website for managing bookings and appo
 To be used with WordPress Gutenberg.
 
 
-![Create calendar section with Gutenberg](https://kenzap.com/website/img/calendar-3.png)
+![Create calendar section with Gutenberg](https://cdn.kenzap.com/github/img/calendar-3.png)
 
 <b>Block is easy customizable:</b>
 
